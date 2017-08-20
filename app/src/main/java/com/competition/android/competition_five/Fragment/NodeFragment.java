@@ -27,10 +27,10 @@ import com.baidu.ocr.sdk.exception.OCRError;
 import com.baidu.ocr.sdk.model.AccessToken;
 import com.baidu.ocr.ui.camera.CameraActivity;
 import com.competition.android.competition_five.Entity.OcrList;
-import com.competition.android.competition_five.HomepageActivity;
+import com.competition.android.competition_five.NodeContextActivity;
 import com.competition.android.competition_five.Ocr.FileUtil;
 import com.competition.android.competition_five.Ocr.IDCardActivity;
-import com.competition.android.competition_five.OcrRecycViewAdapter;
+import com.competition.android.competition_five.Adapter.OcrRecycViewAdapter;
 import com.competition.android.competition_five.R;
 import com.competition.android.competition_five.Ocr.RecognizeService;
 import com.competition.android.competition_five.Ocr.Test;
@@ -105,8 +105,10 @@ public class NodeFragment extends Fragment {
         ocrRecycViewAdapter = new OcrRecycViewAdapter(getActivity(),mOcrLists);
         ocrRecycViewAdapter.setOnItemClickLitsener(new OcrRecycViewAdapter.OnItemClickListenr() {
             @Override
-            public void onItemClick(View view, int position) {
-                HomepageActivity.RepleceFragment(2);
+            public void onItemClick(View view, int position,OcrList ocrList) {
+               Intent intent = new Intent(getActivity(), NodeContextActivity.class);
+                intent.putExtra("ocrlist",ocrList);
+                startActivity(intent);
 
             }
         });

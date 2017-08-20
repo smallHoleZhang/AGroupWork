@@ -1,40 +1,33 @@
-package com.competition.android.competition_five;
+package com.competition.android.competition_five.Adapter;
 
 import android.content.Context;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.competition.android.competition_five.Entity.OcrList;
+import com.competition.android.competition_five.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by hasee on 2017/8/19.
+ * Created by hasee on 2017/8/20.
  */
 
-public class OcrRecycViewAdapter  extends RecyclerView.Adapter<OcrRecycViewAdapter.ViewHolder>  {
+public class NodecontextRecycleViewAdapter  extends RecyclerView.Adapter<NodecontextRecycleViewAdapter.ViewHolder>{
     private Context mContext;
-    private List<OcrList> mList;
-    private OnItemClickListenr mOnItemClickListener;
+    private ArrayList<String> mArrayList;
+    private OcrRecycViewAdapter.OnItemClickListenr mOnItemClickListener;
 
-    public  OcrRecycViewAdapter(Context context, List<OcrList> list)
+
+    public NodecontextRecycleViewAdapter (Context context, ArrayList list)
     {
         this.mContext = context;
-        this.mList = list;
-    }
-    public  interface OnItemClickListenr{
-
-        void onItemClick(View view, int position);
-    }
-    public void setOnItemClickLitsener(OnItemClickListenr mOnItemClickLitsener)
-    {
-        mOnItemClickListener= mOnItemClickLitsener;
+        this.mArrayList = list;
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -44,21 +37,16 @@ public class OcrRecycViewAdapter  extends RecyclerView.Adapter<OcrRecycViewAdapt
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
-        String text = mList.get(position).getList_name();
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        String text = mArrayList.get(position);
         holder.mocrlisttv.setText(text);
-        holder.mOcrList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mOnItemClickListener.onItemClick(holder.itemView,position);
-            }
-        });
-
     }
+
+
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return mArrayList.size();
     }
 
     static  class  ViewHolder extends RecyclerView.ViewHolder{

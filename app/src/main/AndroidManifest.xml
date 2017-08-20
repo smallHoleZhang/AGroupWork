@@ -22,6 +22,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".BaseActivity"></activity>
+        <activity android:name=".NodeContextActivity"></activity>
+        <activity android:name=".Ocr.IDCardActivity"></activity>
+
     </application>
 
 </manifest>

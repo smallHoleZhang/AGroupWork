@@ -20,6 +20,7 @@ public class HomepageActivity extends BaseActivity  implements BottomNavigationB
     private static ArrayList<Fragment>  functionfaragments;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,10 +101,7 @@ public class HomepageActivity extends BaseActivity  implements BottomNavigationB
     public void onTabReselected(int position) {
     }
 
-    public static void RepleceFragment(int postion)
-    {
-        functionfaragments.set(postion, NodeContextFrament.newInstance());
-    }
+
 
 
 

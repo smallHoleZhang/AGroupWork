@@ -11,5 +11,10 @@ public class StaticUilt {
    //有道Ket
    public  static  final  String YD_ID = "4e4e9899fe6abf13";
    public  static  final  String YD_KEY = "ov34cM9XTFzyPrcaukLCHds4DMn9EQjD";
+    //LeanCloudKey
+
+    public  static  final  String LC_ID = "XSkQsSi4cfMLf7hCUffD9zvH-gzGzoHsz";
+    public  static  final  String LC_AK = "OxS3YaUs4b1eOEeO68j106GJ";
+    public  static  final  String LC_MK = "CHTgeFNqWksnsHABp1DgHNrg";
 
 }

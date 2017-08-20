@@ -1,5 +1,6 @@
 package com.competition.android.competition_five.Entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -7,7 +8,7 @@ import java.util.HashMap;
  * Created by hasee on 2017/8/20.
  */
 
-public class OcrList {
+public class OcrList implements Serializable {
 
 
     private String list_name;
