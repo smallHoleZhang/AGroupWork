@@ -34,6 +34,7 @@ import com.baidu.ocr.sdk.OnResultListener;
 import com.baidu.ocr.sdk.exception.OCRError;
 import com.baidu.ocr.sdk.model.AccessToken;
 import com.baidu.ocr.ui.camera.CameraActivity;
+import com.baidu.ocr.ui.util.StaticParam;
 import com.competition.android.competition_five.Entity.OcrList;
 import com.competition.android.competition_five.UseActivity.NodeContextActivity;
 import com.competition.android.competition_five.Ocr.FileUtil;
@@ -45,6 +46,7 @@ import com.competition.android.competition_five.Ocr.Test;
 import com.competition.android.competition_five.Uilt.L;
 import com.competition.android.competition_five.Uilt.OpenUile;
 import com.competition.android.competition_five.Uilt.StaticUilt;
+import com.competition.android.competition_five.activity.BarrageActivity;
 import com.google.gson.Gson;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
@@ -219,6 +221,26 @@ public class NodeFragment extends Fragment {
                 intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
                         CameraActivity.CONTENT_TYPE_BANK_CARD);
                 startActivityForResult(intent, REQUEST_CODE_BANKCARD);
+            }
+        });
+
+
+        /**
+         * G,button.setOnclick
+         * 弹幕按钮点击事件
+         */
+        view.findViewById(R.id.barrage_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (StaticParam.BITMAP_PHOTO == null) {
+                    Toast.makeText(getContext(), "请先去拍摄图片!", Toast.LENGTH_SHORT).show();
+                } else {
+
+                    Intent intent = new Intent(getContext(), BarrageActivity.class);
+
+                    startActivity(intent);
+                }
             }
         });
 

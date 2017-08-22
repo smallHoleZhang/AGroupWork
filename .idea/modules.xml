@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/AGroupWork-master.iml" filepath="$PROJECT_DIR$/AGroupWork-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/AndroidCompetition.iml" filepath="$PROJECT_DIR$/AndroidCompetition.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/ocr_ui/ocr_ui.iml" filepath="$PROJECT_DIR$/ocr_ui/ocr_ui.iml" />

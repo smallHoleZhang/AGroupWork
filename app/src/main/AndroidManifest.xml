@@ -35,6 +35,11 @@
         <activity android:name=".UseActivity.NodeContextActivity"></activity>
         <activity android:name=".Ocr.IDCardActivity"></activity>
         <activity android:name=".HomepageActivity"></activity>
+        <activity android:name=".activity.BarrageActivity"/>
+        <activity android:name=".activity.mine.FeedbackActivity"/>
+        <activity android:name=".activity.mine.SettingActivity"/>
+        <activity android:name=".activity.mine.UpdateUserInfoActivity"/>
+        <activity android:name=".activity.mine.UserInfoActivity"/>
 
     </application>
 

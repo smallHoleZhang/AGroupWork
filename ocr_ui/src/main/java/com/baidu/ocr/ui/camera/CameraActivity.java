@@ -11,6 +11,7 @@ import com.baidu.idcardquality.IDcardQualityProcess;
 import com.baidu.ocr.ui.R;
 import com.baidu.ocr.ui.crop.CropView;
 import com.baidu.ocr.ui.crop.FrameOverlayView;
+import com.baidu.ocr.ui.util.StaticParam;
 
 import android.Manifest;
 import android.app.Activity;
@@ -351,6 +352,8 @@ public class CameraActivity extends Activity {
             }
             Bitmap cropped = cropView.crop(rect);
             displayImageView.setImageBitmap(cropped);
+
+            StaticParam.BITMAP_PHOTO = cropped;
             cropAndConfirm();
         }
     };
