@@ -1,11 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+               android:orientation="vertical">
     <Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/grey"></Toolbar>
+        android:background="@color/grey">
+        <TextView
+            android:textSize="23dp"
+            android:text="我"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </Toolbar>
+    <View
+        android:background="@color/greyed"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"></View>
+    <LinearLayout
+        android:background="@color/gray"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/maoboli"/>
+        <TextView
+            android:layout_marginLeft="8dp"
+          android:gravity="left|center"
+            android:textSize="15dp"
+            android:text="我叫萌崔哲"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
 
 
-</RelativeLayout>
+</LinearLayout>

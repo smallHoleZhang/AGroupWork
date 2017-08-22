@@ -5,9 +5,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,13 +23,19 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.FindCallback;
+import com.avos.avoscloud.SaveCallback;
 import com.baidu.ocr.sdk.OCR;
 import com.baidu.ocr.sdk.OnResultListener;
 import com.baidu.ocr.sdk.exception.OCRError;
 import com.baidu.ocr.sdk.model.AccessToken;
 import com.baidu.ocr.ui.camera.CameraActivity;
 import com.competition.android.competition_five.Entity.OcrList;
-import com.competition.android.competition_five.NodeContextActivity;
+import com.competition.android.competition_five.UseActivity.NodeContextActivity;
 import com.competition.android.competition_five.Ocr.FileUtil;
 import com.competition.android.competition_five.Ocr.IDCardActivity;
 import com.competition.android.competition_five.Adapter.OcrRecycViewAdapter;
@@ -40,6 +48,7 @@ import com.competition.android.competition_five.Uilt.StaticUilt;
 import com.google.gson.Gson;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,6 +80,8 @@ public class NodeFragment extends Fragment {
 
     private LayoutInflater mInflater;
 
+
+    public static OcrList user_0crList = new OcrList();
     //spinner
     private ArrayAdapter <String> spinner_adapter;
     private List <String> spinner_list = new ArrayList<>();
@@ -81,6 +92,7 @@ public class NodeFragment extends Fragment {
     private Button spinner_add_button;
     MaterialEditText materialEditText;
     private String spinnertext = null;
+    private  OcrList ocrlist;
 
     private RecyclerView ocr_list_recyclerview;
     private OcrRecycViewAdapter ocrRecycViewAdapter;
@@ -97,22 +109,27 @@ public class NodeFragment extends Fragment {
         alertDialog = new AlertDialog.Builder(getActivity());
         orc_content =  (EditText)view.findViewById(R.id.ocr_content);
         dialog = new AlertDialog.Builder(getActivity());
-        initDlalogView();
-
        ocr_list_recyclerview = (RecyclerView) view.findViewById(R.id.orc_list_recyclerview);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         ocr_list_recyclerview.setLayoutManager(linearLayoutManager);
-        ocrRecycViewAdapter = new OcrRecycViewAdapter(getActivity(),mOcrLists);
+        if(mOcrLists.size()==0)
+        {
+            initList();
+        }
+        ocrRecycViewAdapter = new OcrRecycViewAdapter(getActivity(),
+                mOcrLists);
         ocrRecycViewAdapter.setOnItemClickLitsener(new OcrRecycViewAdapter.OnItemClickListenr() {
             @Override
             public void onItemClick(View view, int position,OcrList ocrList) {
                Intent intent = new Intent(getActivity(), NodeContextActivity.class);
-                intent.putExtra("ocrlist",ocrList);
+                user_0crList = ocrList;
                 startActivity(intent);
 
             }
         });
         ocr_list_recyclerview.setAdapter(ocrRecycViewAdapter);
+
+        initDlalogView();
 
 
         //spinner
@@ -212,6 +229,36 @@ public class NodeFragment extends Fragment {
 
         return view;
     }
+
+    private void initList() {
+      /*  ArrayList<OcrList> arry = new ArrayList<>();
+        ArrayList<String> arrys = new ArrayList<>();*/
+            AVQuery<OcrList> query = AVQuery.getQuery(OcrList.class);
+        L.d(AVUser.getCurrentUser().getObjectId());
+                               query.whereEqualTo("userId",AVObject.createWithoutData("_User", AVUser.getCurrentUser().getObjectId()));
+                               query.findInBackground(new FindCallback<OcrList>() {
+                                   @Override
+                                   public void done(List<OcrList> list, AVException e) {
+                                       if(e == null)
+                                       {
+                                           L.d("123");
+                                           for(OcrList a :list)
+                                           {
+                                                mOcrLists.add(a);
+                                               spinner_list.add(a.getList_name());
+                                               ocrRecycViewAdapter.notifyDataSetChanged();
+
+                                           }
+                                       }else {
+                                           L.d("失败");
+                                       }
+                                   }
+                               });
+
+
+
+    }
+
     private boolean checkTokenStatus() {
         if (!hasGotToken) {
             Toast.makeText(getActivity().getApplicationContext(), "token还未成功获取", Toast.LENGTH_LONG).show();
@@ -333,6 +380,7 @@ public class NodeFragment extends Fragment {
                     });
         }
     }
+
     public void StringToJSON( String result) {
         Gson gson = new Gson();
         Test test = gson.fromJson(result,Test.class);
@@ -384,6 +432,40 @@ public class NodeFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String context = spinner_add_item.getText().toString();
+                        //判断添加想是否为空
+                        String text = materialEditText.getText().toString();
+
+                        if(!context.equals(""))
+                        {
+                            spinner_adapter.add(context);
+                            final OcrList ocrlist = new OcrList();
+                            ocrlist.setList_name(context);
+                            ocrlist.setUserId(AVUser.getCurrentUser().getObjectId());
+                            ocrlist.AddArraylist(text);
+                            ocrlist.saveInBackground(new SaveCallback() {
+                                @Override
+                                public void done(AVException e) {
+                                    if (e == null){
+                                        L.d("SuccessSS" +  ocrlist.getObjectId());
+                                        String id;
+                                        id =ocrlist.getObjectId() ;
+                                        SetId(ocrlist,id);
+
+                                    }else {
+                                        L.d("failed"+e.toString());
+                                    }
+                                }
+                            });
+                            mOcrLists.add(ocrlist);
+                            content= new StringBuilder();
+                            int position = spinner_adapter.getPosition(context);
+                            spinner_ocr_list.setSelection(position);
+                            //清空用于输入的EditText
+                            context = "";
+                            spinner_add_item.setText("");
+                            spinnertext = "";
+                        }
+
                         for(int i = 0;i < spinner_adapter.getCount();i++)
                         {
                             if(context.equals(spinner_adapter.getItem(i)))
@@ -396,29 +478,32 @@ public class NodeFragment extends Fragment {
                         {
                             if(spinnertext.equals(mOcrLists.get(i).getList_name()))
                             {
-
-                                mOcrLists.get(i).AddArraylist(content.toString());
+                                 OcrList ocrList = new OcrList();
+                                mOcrLists.get(i).AddArraylist(text);
+                                ocrList.setObjectId(mOcrLists.get(i).getId());
+                                L.d("m33"+mOcrLists.get(i).getId());
+                                L.d("m33"+mOcrLists.get(i).getList_name());
+                                L.d("m33"+mOcrLists.get(i).getArrayList());
+                                ocrList.setArrayList((ArrayList<String>) mOcrLists.get(i).getArrayList());
+                                ocrList.saveInBackground();
+                            /*    AVQuery<OcrList> query = AVQuery.getQuery(OcrList.class);
+                               query.findInBackground(new FindCallback<OcrList>() {
+                                   @Override
+                                   public void done(List<OcrList> list, AVException e) {
+                                       if(e == null)
+                                       {
+                                           for(OcrList a :list)
+                                           {
+                                               L.d(a.getArrayList().toString());
+                                           }
+                                       }
+                                   }
+                               });*/
                                 content= new StringBuilder();
-                                L.i(mOcrLists.get(i).getArrayList().toString());
                             }
                         }
 
 
-                        //判断添加想是否为空
-                        if(!context.equals(""))
-                        {
-                            spinner_adapter.add(context);
-                            OcrList ocrList = new OcrList();
-                            ocrList.setList_name(context);
-                            ocrList.AddArraylist(content.toString());
-                            content= new StringBuilder();
-                            mOcrLists.add(ocrList);
-
-                            int position = spinner_adapter.getPosition(context);
-                            spinner_ocr_list.setSelection(position);
-                            //清空用于输入的EditText
-                            spinner_add_item.setText("");
-                        }
                         spinner_ocr_list.setVisibility(View.VISIBLE);
                         spinner_add_item.setVisibility(View.GONE);
                         spinner_add_button.setVisibility(View.VISIBLE);
@@ -448,6 +533,17 @@ public class NodeFragment extends Fragment {
 
     }
 
+    private void SetId(OcrList ocrList, String id) {
+
+        ocrList.setId(id);
+
+        ocrList.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(AVException e) {
+
+            }
+        });
+    }
 
 
     private void initSpinner() {
@@ -473,5 +569,9 @@ public class NodeFragment extends Fragment {
 
     }
 
+    private void AddOcrList(String context)
+    {
+
+    }
 
 }
