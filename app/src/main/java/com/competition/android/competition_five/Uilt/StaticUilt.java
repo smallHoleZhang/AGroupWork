@@ -17,4 +17,8 @@ public class StaticUilt {
     public  static  final  String LC_AK = "OxS3YaUs4b1eOEeO68j106GJ";
     public  static  final  String LC_MK = "CHTgeFNqWksnsHABp1DgHNrg";
 
+    //百度自然语言处理key
+    public  static  final  String NLP_AK = "bcKs4VYhk3pchmolbUG1k00y";
+    public  static  final  String NLP_SK = "i1vQQmAqBUIzHSDknGHYDuhlI9bfux4q";
+
 }
