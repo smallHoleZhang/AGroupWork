@@ -1,1 +1,1 @@
-include ':app', ':wuduo', ':ocr_ui'
+include ':app', ':ocr_ui'

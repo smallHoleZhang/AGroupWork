@@ -153,4 +153,9 @@
     <color name="navy">#000080</color> <!-- 海军色 -->
     <color name="black">#000000</color> <!-- 黑色 -->
 
+    <!--toolbar的背景渐变效果-->
+
+    <color name="toolbar_star">#56adff</color>
+    <color name="toolbar_end">#5f2aff</color>
+
 </resources>

@@ -40,7 +40,6 @@ dependencies {
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
     compile 'com.google.code.gson:gson:2.7'
     testCompile 'junit:junit:4.12'
-    compile project(':wuduo')
     compile project(':ocr_ui')
     compile files('libs/ocr-sdk.jar')
     compile 'com.android.support:recyclerview-v7:25.3.1'

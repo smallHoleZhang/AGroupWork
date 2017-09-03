@@ -40,6 +40,8 @@
         <activity android:name=".activity.mine.SettingActivity"/>
         <activity android:name=".activity.mine.UpdateUserInfoActivity"/>
         <activity android:name=".activity.mine.UserInfoActivity"/>
+        <activity android:name=".activity.ar.UploadTuPian"/>
+        <activity android:name=".activity.ar.UploadShiPin"/>
 
     </application>
 
