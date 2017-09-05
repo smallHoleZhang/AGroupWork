@@ -25,23 +25,42 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".UseActivity.LoginActivity">
+
+        </activity>
+        <activity android:name=".BaseActivity">
+
+        </activity>
+        <activity android:name=".UseActivity.NodeContextActivity"></activity>
+        <activity android:name=".Ocr.IDCardActivity"></activity>
+        <activity android:name=".HomepageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".BaseActivity"></activity>
-        <activity android:name=".UseActivity.NodeContextActivity"></activity>
-        <activity android:name=".Ocr.IDCardActivity"></activity>
-        <activity android:name=".HomepageActivity"></activity>
-        <activity android:name=".activity.BarrageActivity"/>
+        <activity android:name=".activity.BarrageActivity">
+
+        </activity>
         <activity android:name=".activity.mine.FeedbackActivity"/>
         <activity android:name=".activity.mine.SettingActivity"/>
         <activity android:name=".activity.mine.UpdateUserInfoActivity"/>
         <activity android:name=".activity.mine.UserInfoActivity"/>
-        <activity android:name=".activity.ar.UploadTuPian"/>
+        <activity android:name=".activity.ar.UploadTuPian">
+
+        </activity>
         <activity android:name=".activity.ar.UploadShiPin"/>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.File_Provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths">
+            </meta-data>
+        </provider>
 
     </application>
 

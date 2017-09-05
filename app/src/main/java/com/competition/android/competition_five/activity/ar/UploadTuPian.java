@@ -239,7 +239,7 @@ public class UploadTuPian extends AppCompatActivity implements View.OnClickListe
             e.printStackTrace();
         }
         if (Build.VERSION.SDK_INT >= 24) {
-            imageUri = FileProvider.getUriForFile(this, "com.gaowenxing.xinji.File_Provider", outputImage);
+            imageUri = FileProvider.getUriForFile(this, "com.File_Provider", outputImage);
         } else {
             imageUri = Uri.fromFile(outputImage);
         }

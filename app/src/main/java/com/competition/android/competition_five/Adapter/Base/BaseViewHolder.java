@@ -94,6 +94,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         }
     }
 
+
     public int getMPosition() {
         return mPosition;
     }

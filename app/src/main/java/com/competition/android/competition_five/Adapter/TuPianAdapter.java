@@ -23,6 +23,7 @@ public class TuPianAdapter extends SimpleAdapter<TuPian> {
 
     private Context mContext;
     private BaseViewHolder mHolder;
+    private View mItemView;
 
     public TuPianAdapter(Context context, List<TuPian> datas, int layoutResId) {
         super(context, datas, layoutResId);
