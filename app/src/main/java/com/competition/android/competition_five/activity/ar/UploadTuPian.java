@@ -65,6 +65,8 @@ public class UploadTuPian extends AppCompatActivity implements View.OnClickListe
     private View itemView;
     private CheckBox mCheckBox;
 
+    private boolean isLogo = false;
+
     private static final String TAG = "UploadTuPian";
 
     @Override
@@ -135,12 +137,17 @@ public class UploadTuPian extends AppCompatActivity implements View.OnClickListe
             datas = mTuPian.getDatas();
 
         }else {
-            refresh();
-            if (mPosition!=-1) {
-                TuPian tupian = mTuPian.getData(mPosition);
-                tupian.setCheckBoxVisible(1);
-                tupian.setImagePath(GetPhotoFromAlbum.mImagePath);
-                datas = mTuPian.getDatas();
+
+            if (!isLogo) {
+                refresh();
+                if (mPosition != -1) {
+                    TuPian tupian = mTuPian.getData(mPosition);
+                    tupian.setCheckBoxVisible(1);
+                    tupian.setImagePath(GetPhotoFromAlbum.mImagePath);
+                    datas = mTuPian.getDatas();
+                }
+            }else {
+                isLogo = false;
             }
         }
         initRecycleView();
@@ -178,6 +185,7 @@ public class UploadTuPian extends AppCompatActivity implements View.OnClickListe
                 operate();
                 break;
             case R.id.upload_tupian_photo:
+                isLogo=true;
                 mView = mPhoto;
                 show_dialog();
                 break;
