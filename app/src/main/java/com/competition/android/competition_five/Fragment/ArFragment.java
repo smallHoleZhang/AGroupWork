@@ -20,6 +20,7 @@ import com.competition.android.competition_five.Adapter.Base.BaseAdapter;
 import com.competition.android.competition_five.R;
 import com.competition.android.competition_five.Uilt.OpenUile;
 import com.competition.android.competition_five.Uilt.UploadDialog;
+import com.competition.android.competition_five.activity.ar.ArItemShow;
 import com.competition.android.competition_five.activity.ar.UploadShiPin;
 import com.competition.android.competition_five.activity.ar.UploadTuPian;
 import com.competition.android.competition_five.javaBean.UploadContent;
@@ -80,7 +81,12 @@ public class ArFragment extends Fragment implements View.OnClickListener{
         mAdapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
             @Override
             public void OnClick(View view, int position) {
-                Toast.makeText(getContext(), position+"", Toast.LENGTH_SHORT).show();
+                UploadContent uploadContent = mData.get(position);
+
+                Intent intent = new Intent(getContext(), ArItemShow.class);
+                intent.putExtra("title",uploadContent.getContent());
+                intent.putExtra("author",uploadContent.getAuthor());
+                startActivity(intent);
             }
         });
 
@@ -94,11 +100,24 @@ public class ArFragment extends Fragment implements View.OnClickListener{
 
         mData = new ArrayList<>();
 
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.first);
+        Bitmap bitmap;
 
-        for (int i=0;i<10;i++){
+        for (int i=0;i<9;i++){
 
-            UploadContent u = new UploadContent("第一行代码","Vincent","2分钟前",bitmap);
+            UploadContent u = new UploadContent();
+
+            if (i%3==0){
+
+                u.setContent("android群英传");
+            }else if (i%3==2){
+                u.setContent("android开发艺术探索");
+            }else {
+                u.setContent("android第一行代码");
+            }
+            bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.add);
+            u.setBitmap(bitmap);
+            u.setUpload_time("2分钟前");
+            u.setAuthor("Vincent");
 
             mData.add(u);
 
@@ -118,10 +137,12 @@ public class ArFragment extends Fragment implements View.OnClickListener{
             case R.id.upload_photo:
                 mIntent = new Intent(getContext(), UploadTuPian.class);
                 startActivity(mIntent);
+                mDialog.cancel_dialog();
                 break;
             case R.id.upload_video:
                 mIntent = new Intent(getContext(), UploadShiPin.class);
                 startActivity(mIntent);
+                mDialog.cancel_dialog();
                 break;
             case R.id.upload_cancel_button:
                 mDialog.cancel_dialog();

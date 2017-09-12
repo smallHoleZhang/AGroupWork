@@ -38,4 +38,29 @@
         android:id="@+id/upload_shipin_video"
         android:layout_height="150dp"/>
 
+    <RelativeLayout
+        android:layout_below="@+id/upload_shipin_video"
+        android:id="@+id/add_label_video"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/view_board"
+        android:gravity="center_vertical"
+        android:layout_margin="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:text="@string/add_label"/>
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_right_arrow"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+
 </RelativeLayout>

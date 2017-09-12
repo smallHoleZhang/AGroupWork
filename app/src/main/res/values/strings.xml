@@ -16,4 +16,7 @@
     <drawable name="textView_pressed">#FFB2B3B6</drawable>
     <drawable name="textView_normal">#FFF7F8FD</drawable>
 
+
+    <!--上传图片界面-->
+    <string name="add_label">添加标签</string>
 </resources>

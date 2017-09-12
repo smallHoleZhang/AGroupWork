@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.competition.android.competition_five.R;
 import com.competition.android.competition_five.Uilt.OpenUile;
@@ -50,10 +51,17 @@ public class HomeFragment extends Fragment {
 
 
         for (int i=0;i<3;i++) {
-            TextSliderView textSliderView = new TextSliderView(this.getActivity());
+            final TextSliderView textSliderView = new TextSliderView(this.getActivity());
             textSliderView.image(imageUrl[i]);
             textSliderView.description(imageName[i]);
             textSliderView.setScaleType(BaseSliderView.ScaleType.Fit);
+            textSliderView.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
+                @Override
+                public void onSliderClick(BaseSliderView slider) {
+                    Toast.makeText(getContext(),textSliderView.getDescription(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
             mSliderLayout.addSlider(textSliderView);
         }
 
@@ -72,10 +80,16 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onPageSelected(int i) {
+
+
+
             }
 
             @Override
             public void onPageScrollStateChanged(int i) {
+
+
+
             }
         });
     }
